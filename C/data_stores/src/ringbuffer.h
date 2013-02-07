@@ -10,6 +10,10 @@
 // 4096 messages per segment
 #define MSG_PER_SEGM 4096
 
+// region name length
+#define PREFIX_LEN 11
+#define REGION_LEN 16
+
 /*
   # ring segment size
     - In Bytes - 16 MB segments
