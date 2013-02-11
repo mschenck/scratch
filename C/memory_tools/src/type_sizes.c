@@ -12,6 +12,8 @@ main(void)
 {
   int                       i;
   unsigned int              ui;
+  short                     s;
+  unsigned short            us;
   long                      l;
   unsigned long             ul;
   float                     f;
@@ -20,6 +22,8 @@ main(void)
   pp("char", sizeof(c));
   pp("int", sizeof(i));
   pp("unsigned int", sizeof(ui));
+  pp("short", sizeof(s));
+  pp("unsigned short", sizeof(us));
   pp("float", sizeof(f));
   pp("long", sizeof(l));
   pp("unsigned long", sizeof(ul));
