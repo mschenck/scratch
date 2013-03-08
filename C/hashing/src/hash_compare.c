@@ -3,20 +3,27 @@
 #include "hashers.h"
 
 int
-main (void)
+hashup(char *str, unsigned long slen)
+{
+  printf("%s,%u,%u,%u\n", str, slen, hash_sdbm(str, slen), hash_djb2(str, slen));
+
+  return 0;
+}
+
+int
+main (int argc, char **argv)
 {
   unsigned long hash;
-  unsigned long slen;
-  char          *str;
+  char          *in_s, *cr;
+  size_t        *len;
 
-  str = "Test string";
- 
-  slen = (unsigned long) strlen(str); 
+  printf("String,length,hash_sdbm,hash_djb2\n");
+  
+  while ( in_s = fgetln(stdin, &len) ) {
+    cr = strchr(in_s, '\n');
+    *cr = '\0';
+    hashup(in_s, (unsigned long) len);
+  }
 
-  printf("The length of '%s' is %u.\n", str, slen); 
-
-  printf("hash_sdbm is '%u'.\n", hash_sdbm(str, slen));
-  printf("hash_djb2 is '%u'.\n", hash_djb2(str, slen));
-   
   return 0;
 }
