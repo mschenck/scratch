@@ -6,7 +6,6 @@ int
 hashup(char *str, unsigned long slen)
 {
   printf("%s,%u,%u,%u\n", str, slen, hash_sdbm(str, slen), hash_djb2(str, slen));
-
   return 0;
 }
 
