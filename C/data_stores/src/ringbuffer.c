@@ -8,6 +8,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <string.h>
+#include <errno.h>
 
 #include "ringbuffer.h"
 
@@ -19,7 +20,7 @@ name_region (char* region_str, int index)
   char        prefix_str[PREFIX_LEN];
 
   strncpy(prefix_str, SERVERNAME, PREFIX_LEN);
-  sprintf(region_str, "/%s-%d", prefix_str, index);
+  sprintf(region_str, "/%s%d", prefix_str, index);
 }
 
 /*
@@ -40,12 +41,55 @@ init_rb (size_t segment_size, int segment_count)
   segment_iter = 0; 
   do {
     name_region(shm_region, segment_iter);
-    printf("The shm_region is '%s' and the size is %d bytes\n", shm_region, sizeof(RingBuffer));
+    printf("The shm_region is '%s' and the size is %lu bytes\n", shm_region, sizeof(RingBuffer));
 
-    shm_fd = shm_open(shm_region, O_RDWR|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+    // shm_fd = shm_open(shm_region, O_RDWR|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+    shm_fd = shm_open(shm_region, O_RDWR|O_CREAT|O_TRUNC);
 
     if (shm_fd == -1) {
-      printf("FATAL: Unable to get file descriptor for segment %s\n", shm_region);
+      printf("FATAL: Unable to open file descriptor for segment %s: ", shm_region);
+
+      switch (errno) {
+        case EACCES:
+          printf("EACCES(%d)\n", EACCES);
+          break;
+          ;;
+        case EEXIST:
+          printf("EEXIST(%d)\n", EEXIST);
+          break;
+          ;;
+        case EINTR:
+          printf("EINTR(%d)\n", EINTR);
+          break;
+          ;;
+        case EINVAL:
+          printf("EINVAL(%d)\n", EINVAL);
+          break;
+          ;;
+        case EMFILE:
+          printf("EMFILE(%d)\n", EMFILE);
+          break;
+          ;;
+        case ENAMETOOLONG:
+          printf("ENAMETOOLONG(%d)\n", ENAMETOOLONG);
+          break;
+          ;;
+        case ENFILE:
+          printf("ENFILE(%d)\n", ENFILE);
+          break;
+          ;;
+        case ENOENT:
+          printf("ENOENT(%d)\n", ENOENT);
+          break;
+          ;;
+        case ENOSPC:
+          printf("ENOSPC(%d)\n", errno);
+          break;
+          ;;
+        default:
+          printf("errno not matched: %d\n", errno);
+      }
+
       return -1;
     } else {
       printf("DEBUG:\tshm_region: %s\tfd: %d\n", shm_region, (int)shm_fd);
