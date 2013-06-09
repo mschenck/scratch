@@ -22,7 +22,11 @@ all: \
 bin/hash_compare: $(OBJS)
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
 
-#bin/%: src/%.o
+bin/%: src/%.o
+	$(CC) -o $@ $< $(CFLAGS) $(LDFLAGS)
+
+src/%.o: src/%.c
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean: 
 	rm -f src/*.o
