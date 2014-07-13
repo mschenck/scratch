@@ -42,5 +42,7 @@ main() {
     delete_head( &ints );
   }
  
+  print_links( &ints );
+
   return 0;
 }
