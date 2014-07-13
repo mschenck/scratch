@@ -10,6 +10,8 @@ typedef struct {
   int_link *head;
 } int_list;
 
+int_link* new_link();
+
 void insert_head( int_list*, int_link* );
 
 void delete_head( int_list* );
