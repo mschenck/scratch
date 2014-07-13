@@ -1,19 +1,5 @@
-#include <stdio.h>
+
 #include "singlylinked.h"
-
-void
-print_links( int_list* list )
-{
-  int_link  *ptr;
-
-  printf("+ print_links( int_list* list )\n");
-
-  for ( ptr = list->head; ptr != NULL; ptr = ptr->next ) {
-    printf( "  - link(%p) = %d\n", ptr, ptr->value );
-  }
-
-  printf("\n");
-}
 
 int
 main() {
