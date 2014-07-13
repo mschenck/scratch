@@ -15,7 +15,6 @@ int_link* new_link()
 void
 insert_head( int_list* list, int_link* new_link )
 {
-
   new_link->next = list->head;
   list->head = new_link;
 }
@@ -32,7 +31,6 @@ delete_head( int_list* list )
 void
 insert_after( int_link* after_this, int_link* new_link )
 {
-  
   int_link *buffer = after_this->next;
   after_this->next = new_link;
   new_link->next = buffer;
@@ -41,7 +39,6 @@ insert_after( int_link* after_this, int_link* new_link )
 void
 delete_after( int_link* link )
 {
-
   int_link *buffer = link->next;
   link->next = buffer->next;
 
