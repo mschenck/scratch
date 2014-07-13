@@ -15,7 +15,6 @@ int_link* new_link()
 void
 insert_head( int_list* list, int_link* new_link )
 {
-  //fprintf( stdout,"insert_head( int_list* list, int_link* new_link )\n");
 
   new_link->next = list->head;
   list->head = new_link;
@@ -24,18 +23,15 @@ insert_head( int_list* list, int_link* new_link )
 void
 delete_head( int_list* list )
 {
-  //fprintf( stdout,"delete_head( int_list* list )\n");
   int_link *buffer = list->head;
   list->head = buffer->next;
 
-  //fprintf( stdout,"free( %p )\n", buffer);
   free( buffer );
 }
 
 void
 insert_after( int_link* after_this, int_link* new_link )
 {
-  //fprintf( stdout,"insert_after( int_link* after_this, int_link* new_link )\n");
   
   int_link *buffer = after_this->next;
   after_this->next = new_link;
@@ -45,12 +41,10 @@ insert_after( int_link* after_this, int_link* new_link )
 void
 delete_after( int_link* link )
 {
-  //fprintf( stdout,"delete_after( int_link* link )\n");
 
   int_link *buffer = link->next;
   link->next = buffer->next;
 
-  //fprintf( stdout,"free( %p )\n", buffer);
   free( buffer );
 }
 
